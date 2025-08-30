@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fidelity Investment Company - Profit Activation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #004a80 0%, #00a2e3 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #fff;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .logo {
+            margin-bottom: 20px;
+        }
+        
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #fff;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .message {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .message h2 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #ffcc00;
+        }
+        
+        .message p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .loading-container {
+            margin: 30px 0;
+        }
+        
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 5px solid #ffcc00;
+            margin: 0 auto;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .timer-container {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .timer {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #ffcc00;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .timer-text {
+            font-size: 18px;
+            margin-top: 5px;
+        }
+        
+        .info-box {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .info-box h3 {
+            margin-bottom: 10px;
+            color: #ffcc00;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .failure-page {
+            display: none;
+            text-align: center;
+        }
+        
+        .failure-icon {
+            font-size: 60px;
+            color: #ff3366;
+            margin: 20px 0;
+        }
+        
+        .btn {
+            background: #ffcc00;
+            color: #004a80;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            background: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .contact {
+            margin-top: 30px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1><i class="fas fa-chart-line"></i> FIDELITY INVESTMENT COMPANY</h1>
+        </div>
+        
+        <div class="message">
+            <h2><i class="fas fa-check-circle"></i> Congratulations!</h2>
+            <p>Dear investor, your profit has been activated and is being processed.</p>
+        </div>
+        
+        <div class="loading-container">
+            <div class="loader"></div>
+            <p style="margin-top: 15px;">Processing your transaction...</p>
+        </div>
+        
+        <div class="timer-container">
+            <div class="timer" id="timer">30:00</div>
+            <div class="timer-text">Time until profit transfer</div>
+        </div>
+        
+        <div class="info-box">
+            <h3><i class="fas fa-info-circle"></i> Important Information</h3>
+            <p>Your profit of <strong>$2,450.00</strong> is being transferred to your account. Please do not close this window during the process.</p>
+        </div>
+        
+        <div class="failure-page" id="failurePage">
+            <div class="failure-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h2>Payment Failed</h2>
+            <p>Due to bad network connection, we couldn't complete your transaction.</p>
+            <div class="info-box">
+                <h3><i class="fas fa-exclamation-circle"></i> Resolution Required</h3>
+                <p>You need to pay a network fee of $5.00 to receive your profit immediately.</p>
+            </div>
+            <button class="btn" id="payFeeBtn">
+                <i class="fas fa-bolt"></i> Pay Network Fee Now
+            </button>
+        </div>
+        
+        <div class="contact">
+            <p>Need help? Contact support: support@fidelityinvestment.com</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const timerElement = document.getElementById('timer');
+            const failurePage = document.getElementById('failurePage');
+            const payFeeBtn = document.getElementById('payFeeBtn');
+            
+            // Check if we have a saved time in localStorage
+            let timeLeft = localStorage.getItem('profitTimer');
+            let endTime = localStorage.getItem('profitEndTime');
+            
+            // If no time is saved, set it to 30 minutes
+            if (!timeLeft) {
+                timeLeft = 30 * 60; // 30 minutes in seconds
+                endTime = Date.now() + timeLeft * 1000;
+                localStorage.setItem('profitTimer', timeLeft);
+                localStorage.setItem('profitEndTime', endTime);
+            } else {
+                // Calculate remaining time based on saved end time
+                timeLeft = Math.max(0, Math.floor((endTime - Date.now()) / 1000));
+            }
+            
+            // Function to update the timer
+            function updateTimer() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                
+                timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    // Show failure page
+                    document.querySelector('.message').style.display = 'none';
+                    document.querySelector('.loading-container').style.display = 'none';
+                    document.querySelector('.timer-container').style.display = 'none';
+                    document.querySelector('.info-box').style.display = 'none';
+                    failurePage.style.display = 'block';
+                    
+                    // Clear the stored time
+                    localStorage.removeItem('profitTimer');
+                    localStorage.removeItem('profitEndTime');
+                } else {
+                    timeLeft--;
+                    localStorage.setItem('profitTimer', timeLeft);
+                }
+            }
+            
+            // Initial update
+            updateTimer();
+            
+            // Update timer every second
+            const timerInterval = setInterval(updateTimer, 1000);
+            
+            // Handle pay fee button click
+            payFeeBtn.addEventListener('click', function() {
+                alert('You will be redirected to the network fee payment page...');
+                // In a real implementation, this would redirect to a payment gateway
+            });
+        });
+    </script>
+</body>
+</html>
